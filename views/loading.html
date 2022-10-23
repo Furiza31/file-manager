@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Manager</title>
+</head>
+
+<body>
+    <main>
+        <span class="loader"></span>
+    </main>
+</body>
+
+</html>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #101010;
+    }
+
+    main {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .loader {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 7rem;
+    }
+
+    .loader:before,
+    .loader:after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        animation: pulsOut 1.8s ease-in-out infinite;
+        filter: drop-shadow(0 0 1rem rgba(0, 146, 202, 0.75));
+    }
+
+    .loader:before {
+        width: 100%;
+        padding-bottom: 100%;
+        box-shadow: inset 0 0 0 1rem #0092CA;
+        animation-name: pulsIn;
+    }
+
+    .loader:after {
+        width: calc(100% - 2rem);
+        padding-bottom: calc(100% - 2rem);
+        box-shadow: 0 0 0 0 #0092CA;
+    }
+
+    @keyframes pulsIn {
+        0% {
+            box-shadow: inset 0 0 0 1rem #0092CA;
+            opacity: 1;
+        }
+
+        50%,
+        100% {
+            box-shadow: inset 0 0 0 0 #0092CA;
+            opacity: 0;
+        }
+    }
+
+    @keyframes pulsOut {
+
+        0%,
+        50% {
+            box-shadow: 0 0 0 0 #0092CA;
+            opacity: 0;
+        }
+
+        100% {
+            box-shadow: 0 0 0 1rem #0092CA;
+            opacity: 1;
+        }
+    }
+</style>
