@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Furiza31/file-manager/issues"
   },
-  "homepage": "https://github.com/Furiza31/file-manager#readme"
+  "homepage": "https://github.com/Furiza31/file-manager#readme",
+  "devDependencies": {
+    "electron": "^21.2.0"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
 }
