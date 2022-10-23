@@ -1,0 +1,19 @@
+{
+  "name": "file-manager",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Furiza31/file-manager.git"
+  },
+  "author": "Furiza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Furiza31/file-manager/issues"
+  },
+  "homepage": "https://github.com/Furiza31/file-manager#readme"
+}
