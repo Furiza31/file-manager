@@ -1,0 +1,30 @@
+{
+  "name": "file-manager",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Furiza31/file-manager.git"
+  },
+  "author": "Furiza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Furiza31/file-manager/issues"
+  },
+  "homepage": "https://github.com/Furiza31/file-manager#readme",
+  "devDependencies": {
+    "electron": "^21.2.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.18.2",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "twig": "^1.15.4"
+  }
+}
