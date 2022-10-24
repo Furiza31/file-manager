@@ -1,0 +1,17 @@
+{% extends "./include/base.html.twig" %}
+
+{% block title %}
+	Workspace
+{% endblock %}
+{% block head %}
+	{{ parent() }}
+	<link rel="stylesheet" href="/css/workspace.css">
+{% endblock %}
+{% block content %}
+	<section>
+		<p>
+			Message of the moment:
+			<b>{{ message | reverse }}</b>
+		</p>
+	</section>
+{% endblock %}

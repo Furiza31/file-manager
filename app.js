@@ -1,8 +1,9 @@
-const server = require('./webServer');
+const server = require('./include/webServer');
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-const config = require('./config.json');
+const config = require('./include/config.json');
+const path = require('path');
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -10,7 +11,8 @@ function createWindow() {
         height: 600,
         minWidth: 800,
         minHeight: 600,
-        center: true
+        center: true,
+        show: false
     });
 
     const loadingWindow = new BrowserWindow({
@@ -21,16 +23,41 @@ function createWindow() {
         center: true,
         frame: false,
         resizable: false,
-        backgroundColor: '#101010'
+        backgroundColor: '#101010',
+        show: true
     });
 
-    mainWindow.once('ready-to-show', () => {
-        loadingWindow.close();
-        mainWindow.show();
-    });
-
+    if (server.workspace.isCreated()) {
+        mainWindow.once('ready-to-show', () => {
+            loadingWindow.close();
+            mainWindow.show();
+        });
+        mainWindow.loadURL(`http://127.0.0.1:${config.PORT}`);
+    } else {
+        const setupWindow = new BrowserWindow({
+            width: 800,
+            height: 600,
+            minWidth: 800,
+            minHeight: 600,
+            center: true,
+            show: false,
+            webPreferences: {
+                preload: path.join(__dirname, '/include/preload.js')
+            }
+        });
+        setupWindow.loadURL("https://webetud.iut-blagnac.fr/login/index.php");
+        setupWindow.once('ready-to-show', () => {
+            setupWindow.show();
+        });
+        const { ipcMain } = require('electron');
+        ipcMain.on('setup', (event, arg) => {
+            mainWindow.loadURL(`http://127.0.0.1:${config.PORT}/setup/${arg}`);
+            loadingWindow.close();
+            setupWindow.close();
+            mainWindow.show();
+        });
+    }
     loadingWindow.loadFile('./views/loading.html');
-    mainWindow.loadURL(`http://127.0.0.1:${config.PORT}`);
 }
 
 app.whenReady().then(() => {

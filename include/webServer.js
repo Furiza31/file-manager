@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const config = require('./config.json');
+const Workspace = require('./workspace');
+const workspace = new Workspace();
 
 const start = () => {
     app.use(express.static('public'));
@@ -10,8 +12,12 @@ const start = () => {
         strict_variables: false
     });
 
-    app.get('/', function (req, res) {
-        res.render('index.html.twig', {message : "Hello World"});
+    app.get('/', (req, res) => {
+        res.render('workspace.html.twig', {message : "Hello World"});
+    });
+
+    app.get('/setup/:cookie', (req, res) => {
+        console.log(req.params.cookie);
     });
 
     app.listen(config.PORT, () => {
@@ -19,4 +25,7 @@ const start = () => {
     });
 }
 
-exports.start = start;
+module.exports = {
+    start,
+    workspace
+};
