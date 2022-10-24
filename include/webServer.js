@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const config = require('./config.json');
 const Workspace = require('./workspace');
-const workspace = new Workspace();
+const workspace = new Workspace.Workspace();
 
 const start = () => {
     app.use(express.static('public'));
@@ -17,7 +17,11 @@ const start = () => {
     });
 
     app.get('/setup/:cookie', (req, res) => {
-        console.log(req.params.cookie);
+        Workspace.getClasses(req.params.cookie).then((classes) => {
+            console.log(classes);
+        }).catch((error) => {
+            console.log(error);
+        });
     });
 
     app.listen(config.PORT, () => {
