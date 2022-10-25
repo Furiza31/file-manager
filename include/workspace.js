@@ -38,24 +38,25 @@ const getClasses = (cookie) => {
                         if (error) reject(error);
                         else {
                             let $ = cheerio.load(body);
-                            let regex = /^[SR]\d\.\d{2}.*/g
-                            let classes = [];
+                            let regexClasses = /^[RS]\d[\.A-Z\d]+.*/;
+                            let regexCourses = /course=[\d]+/;
+                            let data = [];
                             // get all li elements from #region-main > div > div > div > section:nth-child(3) > div > ul > li > dl > dd > ul
                             $("#region-main > div > div > div > section:nth-child(3) > div > ul > li > dl > dd > ul > li").each((index, element) => {
                                 // get the text of the element
-                                let text = $(element).text();
-                                // if the text match the regex
-                                if (regex.test(text)) {
+                                let text = $(element).text().trim();
+                                // if the text match the regexClasses
+                                if (regexClasses.test(text)) {
                                     // get the link of the element
                                     let link = $(element).find('a').attr('href');
                                     // push the class in the classes array
-                                    classes.push({
+                                    data.push({
                                         name: text,
-                                        link: link
+                                        link: 'https://webetud.iut-blagnac.fr/course/view.php?id=' + link.match(regexCourses)[0].split('=')[1]
                                     });
                                 }
                             });
-                            resolve(classes);
+                            resolve(data);
                         }
                     });
                 }

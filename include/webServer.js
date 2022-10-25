@@ -17,8 +17,8 @@ const start = () => {
     });
 
     app.get('/setup/:cookie', (req, res) => {
-        Workspace.getClasses(req.params.cookie).then((classes) => {
-            console.log(classes);
+        Workspace.getClasses(req.params.cookie).then((data) => {
+            console.log(data);
         }).catch((error) => {
             console.log(error);
         });
