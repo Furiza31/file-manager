@@ -34,6 +34,7 @@ function createWindow() {
         });
         mainWindow.loadURL(`http://127.0.0.1:${config.PORT}`);
     } else {
+        let setupOk = false;
         const setupWindow = new BrowserWindow({
             width: 800,
             height: 600,
@@ -49,8 +50,12 @@ function createWindow() {
         setupWindow.once('ready-to-show', () => {
             setupWindow.show();
         });
+        setupWindow.once("closed", () => {
+            if (!setupOk) app.quit();
+        });
         const { ipcMain } = require('electron');
         ipcMain.on('setup', (event, arg) => {
+            setupOk = true;
             mainWindow.loadURL(`http://127.0.0.1:${config.PORT}/setup/${arg}`);
             loadingWindow.close();
             setupWindow.close();
@@ -66,7 +71,7 @@ app.whenReady().then(() => {
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
-            reateWindow();
+            createWindow();
         }
     });
 });
