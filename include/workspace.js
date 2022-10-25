@@ -5,7 +5,19 @@ const cheerio = require('cheerio');
 
 class Workspace {
     constructor() {
-        
+        this.workspace = path.join(__dirname, '../workspace');
+    }
+
+    create(data) {
+        if (this.isCreated()) {
+            console.log('Workspace already created');
+            return;
+        }
+        fs.mkdirSync(this.workspace);
+        data.forEach((item) => {
+            fs.mkdirSync(path.join(this.workspace, item.name));
+        });
+        fs.writeFileSync(path.join(this.workspace, 'data.json'), JSON.stringify(data));
     }
 
     isCreated() {
@@ -37,26 +49,28 @@ const getClasses = (cookie) => {
                     }, (error, response, body) => {
                         if (error) reject(error);
                         else {
-                            let $ = cheerio.load(body);
-                            let regexClasses = /^[RS]\d[\.A-Z\d]+.*/;
-                            let regexCourses = /course=[\d]+/;
-                            let data = [];
-                            // get all li elements from #region-main > div > div > div > section:nth-child(3) > div > ul > li > dl > dd > ul
-                            $("#region-main > div > div > div > section:nth-child(3) > div > ul > li > dl > dd > ul > li").each((index, element) => {
-                                // get the text of the element
-                                let text = $(element).text().trim();
-                                // if the text match the regexClasses
-                                if (regexClasses.test(text)) {
-                                    // get the link of the element
-                                    let link = $(element).find('a').attr('href');
-                                    // push the class in the classes array
-                                    data.push({
-                                        name: text,
-                                        link: 'https://webetud.iut-blagnac.fr/course/view.php?id=' + link.match(regexCourses)[0].split('=')[1]
-                                    });
-                                }
-                            });
-                            resolve(data);
+                            if (response.statusCode == 200) {
+                                let $ = cheerio.load(body);
+                                let regexClasses = /^[RS]\d[\.A-Z\d]+.*/;
+                                let regexCourses = /course=[\d]+/;
+                                let data = [];
+                                // get all li elements from #region-main > div > div > div > section:nth-child(3) > div > ul > li > dl > dd > ul
+                                $("#region-main > div > div > div > section:nth-child(3) > div > ul > li > dl > dd > ul > li").each((index, element) => {
+                                    // get the text of the element
+                                    let text = $(element).text().trim();
+                                    // if the text match the regexClasses
+                                    if (regexClasses.test(text)) {
+                                        // get the link of the element
+                                        let link = $(element).find('a').attr('href');
+                                        // push the class in the classes array
+                                        data.push({
+                                            name: text,
+                                            link: 'https://webetud.iut-blagnac.fr/course/view.php?id=' + link.match(regexCourses)[0].split('=')[1]
+                                        });
+                                    }
+                                });
+                                resolve(data);
+                            }
                         }
                     });
                 }
