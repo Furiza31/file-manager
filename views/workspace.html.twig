@@ -8,10 +8,16 @@
 	<link rel="stylesheet" href="/css/workspace.css">
 {% endblock %}
 {% block content %}
+	<header>
+		<div class="searchBar">
+			<input type="text" id="search" placeholder="Search">
+		</div>
+	</header>
 	<section>
-		<p>
-			Message of the moment:
-			<b>{{ message | reverse }}</b>
-		</p>
+		{% for item in data %}
+			<div class="classe">
+				<p> {{ item.name }} </p>
+			</div>
+		{% endfor %}
 	</section>
 {% endblock %}

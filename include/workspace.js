@@ -6,6 +6,8 @@ const cheerio = require('cheerio');
 class Workspace {
     constructor() {
         this.workspace = path.join(__dirname, '../workspace');
+        if (this.isCreated()) this.data = JSON.parse(fs.readFileSync(path.join(this.workspace, 'data.json')));
+        else this.data = null;
     }
 
     create(data) {
@@ -18,10 +20,15 @@ class Workspace {
             fs.mkdirSync(path.join(this.workspace, item.name));
         });
         fs.writeFileSync(path.join(this.workspace, 'data.json'), JSON.stringify(data));
+        this.data = data;
     }
 
     isCreated() {
         return fs.existsSync(path.join(__dirname, '../workspace'));
+    }
+
+    getData() {
+        return this.data;
     }
 
 }

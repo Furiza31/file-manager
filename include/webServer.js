@@ -13,7 +13,7 @@ const start = () => {
     });
 
     app.get('/', (req, res) => {
-        res.render('workspace.html.twig', {message : "Hello World"});
+        res.render('workspace.html.twig', { data: workspace.getData() });
     });
 
     app.get('/setup/:cookie', (req, res) => {

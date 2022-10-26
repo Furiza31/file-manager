@@ -1,0 +1,23 @@
+@font-face {
+    font-family: comfortaa;
+    src: url(/font/Comfortaa-Regular.woff2);
+}
+
+:root {
+    --color-background: #101010;
+    --color-white: #EEEEEE;
+    --color-objectBackground: #202020;
+    --color-black: #000000;
+    --color-blue: #0092CA;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    color: var(--color-white);
+    font-family: comfortaa, cursive;
+}
+
+body {
+    background-color: var(--color-background);
+}

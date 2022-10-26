@@ -1,0 +1,47 @@
+section {
+    position: relative;
+    display: block;
+}
+
+header div.searchBar input {
+    position: relative;
+    display: block;
+    background-color: var(--color-objectBackground);
+    padding: 15px;
+    width: 80vw;
+    left: 10vw;
+    height: auto;
+    margin: 2vh;
+    box-sizing: border-box;
+    border: 2px solid var(--color-black);
+    border-radius: 5px;
+    outline: none;
+    font-size: 17px;
+    transition-duration: 0.3s;
+}
+
+header div.searchBar input:hover,
+header div.searchBar input:focus {
+    border-color: var(--color-blue);
+}
+
+section div.classe {
+    position: relative;
+    display: block;
+    background-color: var(--color-objectBackground);
+    padding: 20px;
+    width: 80vw;
+    left: 10vw;
+    height: auto;
+    margin: 2vh;
+    box-sizing: border-box;
+    border: 2px solid var(--color-black);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+section div.classe p {
+    position: relative;
+    display: block;
+}
